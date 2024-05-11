@@ -1,59 +1,64 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>INST 377 FINAL PROJECT- HOME PAGE</title>
-        <link rel = "stylesheet" href = "HomePage.css">
-        <script defer src = "HomePage.js"> </script>
-    </head>
-    <body>
-        <div id = "bar">
-            <header>
-                <h1> INST 377 Team 33 Weather App </h1>
-                
-                <nav id = "nav">
-                    <ul>
-                        <li> Main Page </li>
-                        <li>  About Page </li>
-                        <li>  Help Page </li>
-                    </ul>
-                </nav>
-            </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST 377 FINAL PROJECT - HOME PAGE</title>
+    <link rel="stylesheet" href="HomePage.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="HomePage.js"></script>
+</head>
+<body>
+    <header id="header">
+        <h1>INST 377 Team 33 Weather App</h1>
+        <nav id="nav">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Main Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">About Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Help Page</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6" id="current-location">
+                <h2>WELCOME, YOUR CURRENT LOCATION IS:</h2>
+                <h2 id="current-city"></h2>
+            </div>
+
+            <div class="col-md-6" id="new-location">
+                <h2>Change your location:</h2>
+                <form name="form" id="location-form" onsubmit="newLocation(event)">
+                    <label for="location">NEW LOCATION:</label>
+                    <input type="text" class="form-control" id="location-input">
+                    <input type="submit" class="btn btn-primary mt-2" value="Submit">
+                </form>
+            </div>
         </div>
 
-        <div id = "main-content">
-
-            <div id = "mid-content">
-                <div id="current-location">
-                    <h2> WELCOME YOUR CURRENT LOCATION IS:</h2>
-                    <h2 id="current-city"></h2>
-                </div>
-
-                <div id="new-location">
-                    <h2> Change your location: </h2>
-                    <form name = "form"  id = "location-form" onsubmit="newLocation(event)">
-                    <label for = "location"> NEW LOCATION: </label>
-                    <input type = "text" id = "location-input">
-                    <input type = "submit" value = "Submit">
-                    </form>
-                </div>
+        <div id="weather-info" class="mt-4">
+            <h2 id="hourly-forecast-heading"></h2>
+            <div id="hourly-forecast-list" class="d-flex">
+                <p id="temperature"></p>
+                <p id="humidity"></p>
             </div>
-            
-                <div id="weather-info">
-                    <h2 id = "hourly-forecast-heading"></h2>
-                    <div id="hourly-forecast-list">
-                        <p id="temperature"></p>
-                        <p id="humidity"></p>
-                    </div>
 
-                    <h2>Daily Forecast</h2>
-                    <div id="daily-forecast-list">
-                </div>
+            <h2>Daily Forecast</h2>
+            <div id="daily-forecast-list" class="mt-3">
+                <!-- Forecast items will be dynamically inserted here -->
+            </div>
         </div>
+    </div>
 
-        <footer>
-            <div id ="bar">
-                <p>&copy; 2024 Weather Forecast. All rights reserved.</p>
-            </div>
-        </footer>
-        
-    </body>
+    <footer class="bg-dark text-white text-center p-3 mt-4">
+        <p>&copy; 2024 Weather Forecast. All rights reserved.</p>
+    </footer>
+</body>
 </html>

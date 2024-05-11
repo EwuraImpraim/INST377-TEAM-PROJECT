@@ -1,106 +1,90 @@
-#bar{
-    text-align: center;
-    color: white;
-    width: 100%;
-    background-color: rgb(213, 46, 46);
-    margin-top: 10px;
-}
-
-#nav {
-    margin-top: 10px;
-}
-
-#nav li:hover {
-    background-color: rgb(19, 19, 13);
-    color: white;
-    
-}
-
-#nav ul li{
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-}
-
-#main-nav {
-    background-color: rgb(239, 239, 15);
-}
-
-
-#main-nav li:hover {
-    background-color: rgb(22, 21, 15);
-    color: white;
-    
-}
-
-#main-nav ul li{
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-}
-
-#current-location{
-    float:left;
-}
-
-#new-location{
-    float: right;
-}
-
-#weather-info{
-    border-radius:5px;
-    border: 1px;
-}
-
-.forecast-section {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.forecast-list {
-    list-style: none;
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;  /* Lighter grayish-blue background */
+    color: #333;
+    margin: 0;
     padding: 0;
 }
 
-.forecast-list p {
-    margin: 0;
+/* Header Styles */
+header {
+    background-color: #007bff; /* Primary blue */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
 }
 
-.forecast-list button {
-    margin-left: auto;
+.nav a {
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
 }
 
-.forecast-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+.nav-link:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    color: #ffffff;
 }
 
-#weather-info {
+/* Main Container Styles */
+.container {
     padding: 20px;
-    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
-#hourly-forecast-heading{
-    width: fit-content;
-}
-#hourly-forecast-list {
-    display: flex;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding: 5px; 
+/* Form Styles */
+#new-location label,
+#new-location input,
+#new-location input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
+#new-location input[type="submit"] {
+    padding: 10px;
+    background-color: #007bff; /* Same primary blue as the header */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#new-location input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Weather Info Styles */
 .forecast-item {
-    flex: 0 0 auto;
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 1px;
-    text-align: center;
+    margin: 10px;
+    padding: 20px;
+    background-color: #e9ecef; /* Light grey-blue to maintain visibility */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+#hourly-forecast-list,
+#daily-forecast-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+}
 
+/* Footer Styles */
+footer {
+    background-color: #002244; /* Dark navy blue for contrast */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .forecast-item {
+        width: 100%;
+        flex-direction: column;
+    }
+}
 
