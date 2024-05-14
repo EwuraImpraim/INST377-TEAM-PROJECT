@@ -17,3 +17,5 @@ With the help of our weather app, users can confidently navigate through shiftin
 Description of Target Browsers: Our target browser for this application is currently someone going on the internet and opening the website on their browser. As our web page is currently 
 designed and laid out, it is the most efficient and easy to read when using a web browser. However, in the future, we would love to explore the possibility of creating an application
 that is also accessible through iOS and Android. 
+
+DeveloperManual.md
