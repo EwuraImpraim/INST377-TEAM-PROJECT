@@ -18,4 +18,4 @@ Description of Target Browsers: Our target browser for this application is curre
 designed and laid out, it is the most efficient and easy to read when using a web browser. However, in the future, we would love to explore the possibility of creating an application
 that is also accessible through iOS and Android. 
 
-DeveloperManual.md
+[DeveloperManual.md](https://github.com/EwuraImpraim/INST377-TEAM-PROJECT/blob/main/DeveloperManual.md)
