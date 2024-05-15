@@ -89,27 +89,9 @@ footer {
 }
 
 /* help.css */
-
-form {
-    display: flex;
-    flex-direction: row;
-    align-items: normal;
-}
-
-form label {
-    margin: 10px;
-    margin-bottom: 5px;
-}
-
 #city,
 #state {
     width: 200px; /* Adjust width as needed */
-}
-
-input[type="submit"] {
-    margin: 10px;
-    text-align: justify;
-    width: 90px; /* Adjust width as needed */
 }
 
 #chart-container {
