@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST 377 FINAL PROJECT - HOME PAGE</title>
+    <link rel="stylesheet" href="HomePage.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header id="header">
+        <h1>INST 377 Team 33 Weather App</h1>
+        <nav id="nav">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="HomePage.html">Main Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">About Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="help.html">Help Page</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <br>
+    <form onsubmit="addData(); return false;">
+        <label for="city">City:</label>
+        <input type="text" id="city">
+        <br>
+        <label for="state">State:</label>
+        <input type="text" id="state" maxlength="2">
+        <br>
+        <input type="submit" value="Add Data">
+    </form>
+
+    <div id="chart-container">
+        <canvas id="weatherChart"></canvas>
+    </div>
+
+    <div id="cutoff"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="front.js" defer></script>
+</body>
+</html>
