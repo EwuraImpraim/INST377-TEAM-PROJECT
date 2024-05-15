@@ -88,3 +88,42 @@ footer {
     }
 }
 
+/* help.css */
+
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: normal;
+}
+
+form label {
+    margin: 10px;
+    margin-bottom: 5px;
+}
+
+#city,
+#state {
+    width: 200px; /* Adjust width as needed */
+}
+
+input[type="submit"] {
+    margin: 10px;
+    text-align: justify;
+    width: 90px; /* Adjust width as needed */
+}
+
+#chart-container {
+    margin-left: auto;
+    width: 70%; /* Adjust width as needed */
+    height: 79%; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center horizontally */
+}
+
+#weatherChart {
+    width: max-content;
+    height: max-content;
+}
+
