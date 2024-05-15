@@ -24,10 +24,9 @@ API for the server application:
 
 Known Bugs/ Road Maps:
 
-Does not work globally, only in the US. 
+Known bugs in our software currently is that our software is not compatible for iOS or Android. In addition to that, another known bug is that our software is not able to display weather information globally. As out software currently runs, weather information in the United States is only available. Another thing to note, depending on what browser you are opening the application on, the location services may not work. Make sure that you are allowing your browser to view your location, both on your browser and through your laptop settings. If you are running into issues with a browser, try switching over to another one. 
 
-iOS and Android compatible. 
-Extend to global weather forcast. 
+That leads us to our future road maps. For future developers that may work on our application, we believe it would be extremely beneficial for the users and the progression of the website if it was both iOS and Android compatible. Additionally, opening up the data to include weather information globally will result in more users and inclusivity for our application. 
 
 
 
