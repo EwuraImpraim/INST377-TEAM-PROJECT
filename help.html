@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="HomePage.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <header id="header">
         <h1>INST 377 Team 33 Weather App</h1>
@@ -16,33 +18,46 @@
                     <a class="nav-link text-white" href="HomePage.html">Main Page</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">About Page</a>
+                    <a class="nav-link text-white" href="AboutPage.html">About Page</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="help.html">Help Page</a>
+                    <a class="nav-link text-white" href="help.html">Functionality Page</a>
                 </li>
             </ul>
         </nav>
     </header>
-    
-    <br>
-    <form onsubmit="addData(); return false;">
-        <label for="city">City:</label>
-        <input type="text" id="city">
-        <br>
-        <label for="state">State:</label>
-        <input type="text" id="state" maxlength="2">
-        <br>
-        <input type="submit" value="Add Data">
-    </form>
 
-    <div id="chart-container">
-        <canvas id="weatherChart"></canvas>
+    <br>
+    <div class = "form">
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip">
+        <br>
+        <label for="country">Country:</label>
+        <input type="text" id="country" maxlength="2">
+        
+        <button id = "submit" onclick = "createChart()">Search
     </div>
+    <script>
+        document.getElementById("submit").addEventListener("onclick", function(){
+            createChart();
+        })
+    </script>
+    <div class="container">
+        <div id="chart-container">
+          <canvas id="weatherChart"></canvas>
+        </div>
+        <div id="messageBox" class="message-box">
+            Welcome! Please search for a location to view up-to-date weather information, predictions and more.
+            <br>
+            We hope that all your necessary requests are met :D
+        </div>        
+      </div>
+      
 
     <div id="cutoff"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="front.js" defer></script>
+    <script src="front.js"></script>
 </body>
+
 </html>

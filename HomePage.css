@@ -105,7 +105,25 @@ footer {
 }
 
 #weatherChart {
-    width: max-content;
-    height: max-content;
+    width: 100px;
+    height: 100px;
 }
+
+button {
+    width: 70px;
+    height: 30px;
+    background-color: grey;
+    justify-content:flex-start;
+}
+
+.message-box {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px; /* Adjust margin as needed */
+  }
+  
+.form {
+    margin-left: 10px;
+}
+
 
