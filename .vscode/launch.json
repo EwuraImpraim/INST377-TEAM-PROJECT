@@ -5,10 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "msedge",
+            "name": "Launch Chrome",
             "request": "launch",
-            "name": "Open HomePage.html",
-            "file": "c:\\Users\\Girum\\INST377-TEAM-PROJECT\\HomePage.html"
-        }
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        
     ]
 }

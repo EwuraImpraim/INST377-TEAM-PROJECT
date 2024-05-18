@@ -17,7 +17,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 
 app.get('/', (req, res) => {
-    res.sendFile('/functionality.html', { root: __dirname });
+    res.sendFile('/HomePage.html', { root: __dirname });
 })
 
 app.get('/supabase_data', async (req, res) => {

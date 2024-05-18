@@ -16,43 +16,6 @@ async function fetchDataFromExternalProvider() {
     }
 }
 
-var map = L.map('map').setView([37.8, -96], 4.4); 
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-/* var map = L.map('map').setView([37.8, -96], 3.2);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                        d > 20 ? '#FEB24C' :
-                            d > 10 ? '#FED976' :
-                                '#FFEDA0';
-}
-
-function style(feature) {
-    return {
-        fillColor: getColor(feature.properties.density),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
-
-L.geoJson(, {style: style}).addTo(map); */
 
 async function createChart() {
     try {
@@ -145,4 +108,100 @@ function updateMessageBox(data) {
     }
     messageBox.textContent = message;
 }
+
+async function fetchDataBaseData() {
+    try {
+        const response = await fetch('/supabase_data');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const databaseData = await response.json();
+        console.log(databaseData)
+        return databaseData;
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        return null;
+    }
+}
+
+async function createMapWithData() {
+
+         const data = await fetchDataBaseData();
+        if (!data) return; // Exit if data fetching failed 
+
+    const Data = {
+        "type": "FeatureCollection",
+        "features": data.map(state => ({
+            "type": "Feature",
+            "properties": {
+                "name": state.name,
+                "temperature": state.temperature // Assuming temperature property exists in your data
+            },
+            "geometry": getStateGeometry(state.name)
+        }))
+    };
+
+    createMap(Data);
+}
+
+
+function getStateGeometry(statesData) {
+    var geometries = {};
+    statesData.features.forEach(feature => {
+        var stateName = feature.properties.name;
+        var coordinates = feature.geometry.coordinates;
+        geometries[stateName] = coordinates;
+    });
+    return geometries;
+}
+
+
+function createMap(Data) {
+    var map = L.map('map').setView([37.8, -96], 4);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    console.log(statesData);
+
+    // Fetch temperature data from your database
+    fetchDataBaseData()
+        .then(function (temperature) {
+            L.geoJson(statesData, {
+                style: function (feature) {
+                    return {
+                        fillColor: getColor(temperature[feature.properties.state]),
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.name + "<br>Temperature: " + temperature[feature.properties.state] + "°F");
+                }
+            }).addTo(map);
+        })
+        .catch(function (error) {
+            console.error('Error fetching temperature data:', error);
+        });
+}
+
+    function getColor(temperature) {
+        // console.log(feature.properties.temperature)
+        return temperature > 100 ? '#800026' :
+            temperature > 90 ? '#BD0026' :
+                temperature > 70 ? '#E31A1C' :
+                    temperature > 65 ? '#FC4E2A' :
+                        temperature > 60 ? '#FD8D3C' :
+                            temperature > 55 ? '#FEB24C' :
+                                temperature > 50 ? '#FED976' :
+                                    '#FFEDA0';
+    }
+
+
+window.onload = createMap;
 
