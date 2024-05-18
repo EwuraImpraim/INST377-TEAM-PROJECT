@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.get('/supabase_data', async (req, res) => {
     const { data, error } = await supabase
-        .from('state_densities')
+        .from('state_data')
         .select();
 
     if (error) {

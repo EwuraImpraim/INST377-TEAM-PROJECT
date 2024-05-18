@@ -45,7 +45,6 @@ async function createChart() {
 
         var ctx = canvas.getContext('2d');
 
-        // Create datasets
         const datasets = data.map(({ label, value, color }) => ({
             label: label,
             data: [{ x: label, y: parseFloat(value) }],
@@ -124,40 +123,48 @@ async function fetchDataBaseData() {
     }
 }
 
-async function createMapWithData() {
+function getStateGeometry(stateName, statesData) {
+    const stateFeature = statesData.features.find(feature => feature.properties.name === stateName);
+    if (stateFeature) {
+        return stateFeature.geometry;
+    } else {
+        console.error(`Geometry not found for state: ${stateName}`);
+        return null; 
+    }
+}
 
-         const data = await fetchDataBaseData();
-        if (!data) return; // Exit if data fetching failed 
+async function createMapWithData(statesData) {
+    try {
+        const databaseData = await fetchDataBaseData();
+        if (!databaseData) return;  
 
-    const Data = {
-        "type": "FeatureCollection",
-        "features": data.map(state => ({
+        console.log("Database Data:", databaseData); 
+
+        const geoJSONFeatures = databaseData.map(state => ({
             "type": "Feature",
             "properties": {
                 "name": state.name,
-                "temperature": state.temperature // Assuming temperature property exists in your data
+                "temperature": state.temperature 
             },
-            "geometry": getStateGeometry(state.name)
-        }))
-    };
+            "geometry": getStateGeometry(state.name, statesData)
+        }));
 
-    createMap(Data);
+        console.log("GeoJSON Features:", geoJSONFeatures); 
+
+        const geoJSONData = {
+            "type": "FeatureCollection",
+            "features": geoJSONFeatures
+        };
+
+        createMap(geoJSONData);
+    } catch (error) {
+        console.error('Error creating map with data:', error.message);
+    }
 }
 
-
-function getStateGeometry(statesData) {
-    var geometries = {};
-    statesData.features.forEach(feature => {
-        var stateName = feature.properties.name;
-        var coordinates = feature.geometry.coordinates;
-        geometries[stateName] = coordinates;
-    });
-    return geometries;
-}
-
-
-function createMap(Data) {
-    var map = L.map('map').setView([37.8, -96], 4);
+function createMap(statesData) {
+    console.log("Data with temperature:", statesData);
+    var map = L.map('map').setView([37.8, -96], 4.41);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -166,13 +173,16 @@ function createMap(Data) {
     }).addTo(map);
     console.log(statesData);
 
-    // Fetch temperature data from your database
     fetchDataBaseData()
         .then(function (temperature) {
             L.geoJson(statesData, {
                 style: function (feature) {
+                    const stateName = feature.properties.name;
+                    const stateTemperature = feature.properties.temperature;
+                    console.log("State Name:", stateName, "Temperature:", stateTemperature);
+                    
                     return {
-                        fillColor: getColor(temperature[feature.properties.state]),
+                        fillColor: getColor(stateTemperature),
                         weight: 2,
                         opacity: 1,
                         color: 'white',
@@ -181,7 +191,8 @@ function createMap(Data) {
                     };
                 },
                 onEachFeature: function (feature, layer) {
-                    layer.bindPopup(feature.properties.name + "<br>Temperature: " + temperature[feature.properties.state] + "°F");
+                    const temperature = feature.properties.temperature;
+                    layer.bindPopup(feature.properties.name + "<br>Temperature: " + temperature + "°F");
                 }
             }).addTo(map);
         })
@@ -190,18 +201,28 @@ function createMap(Data) {
         });
 }
 
-    function getColor(temperature) {
-        // console.log(feature.properties.temperature)
-        return temperature > 100 ? '#800026' :
-            temperature > 90 ? '#BD0026' :
-                temperature > 70 ? '#E31A1C' :
-                    temperature > 65 ? '#FC4E2A' :
-                        temperature > 60 ? '#FD8D3C' :
-                            temperature > 55 ? '#FEB24C' :
-                                temperature > 50 ? '#FED976' :
-                                    '#FFEDA0';
+function getColor(temperature) {
+    let color;
+    if (temperature > 100) {
+        color = '#800026';
+    } else if (temperature > 90) {
+        color = '#BD0026';
+    } else if (temperature > 70) {
+        color = '#E31A1C';
+    } else if (temperature > 65) {
+        color = '#FC4E2A';
+    } else if (temperature > 60) {
+        color = '#FD8D3C';
+    } else if (temperature > 55) {
+        color = '#FEB24C';
+    } else if (temperature > 50) {
+        color = '#FED976';
+    } else {
+        color = '#FFEDA0';
     }
 
+    return color;
+}
 
-window.onload = createMap;
+window.onload = createMapWithData(statesData);
 
