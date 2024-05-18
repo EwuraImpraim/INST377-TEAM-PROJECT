@@ -90,20 +90,20 @@ footer {
     }
 }
 
-/* help.css */
+/* functionality.css */
 #city,
 #state {
-    width: 200px; /* Adjust width as needed */
+    width: 200px; 
 }
 
 #chart-container {
     margin-left: auto;
-    width: 70%; /* Adjust width as needed */
-    height: 79%; /* Adjust height as needed */
+    width: 70%; 
+    height: 79%; 
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto; 
 }
 
 #weatherChart {
@@ -122,22 +122,22 @@ button {
     font-size: 30px;
     text-align: center;
     margin-top: 20px; /* Adjust margin as needed */
-}
-
+  }
+  
 .form {
     margin-left: 10px;
 }
 
 #map {
-    width: 100%; /* Fit map width to container */
-    height: 100%; /* Fit map height to container */
+    width: 100%; 
+    height: 100%; 
 }
 
 #map-container {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 122%);
-    width: 70%; /* Adjust width as needed */
-    height: 60%; /* Adjust height as needed */
+    transform: translate(-53%, 112%);
+    width: 70%; 
+    height: 60%; 
 }

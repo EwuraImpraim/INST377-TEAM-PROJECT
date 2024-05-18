@@ -16,43 +16,6 @@ async function fetchDataFromExternalProvider() {
     }
 }
 
-var map = L.map('map').setView([37.8, -96], 4.4); 
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-/* var map = L.map('map').setView([37.8, -96], 3.2);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                        d > 20 ? '#FEB24C' :
-                            d > 10 ? '#FED976' :
-                                '#FFEDA0';
-}
-
-function style(feature) {
-    return {
-        fillColor: getColor(feature.properties.density),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
-
-L.geoJson(, {style: style}).addTo(map); */
 
 async function createChart() {
     try {
@@ -82,7 +45,6 @@ async function createChart() {
 
         var ctx = canvas.getContext('2d');
 
-        // Create datasets
         const datasets = data.map(({ label, value, color }) => ({
             label: label,
             data: [{ x: label, y: parseFloat(value) }],
@@ -145,4 +107,122 @@ function updateMessageBox(data) {
     }
     messageBox.textContent = message;
 }
+
+async function fetchDataBaseData() {
+    try {
+        const response = await fetch('/supabase_data');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const databaseData = await response.json();
+        console.log(databaseData)
+        return databaseData;
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        return null;
+    }
+}
+
+function getStateGeometry(stateName, statesData) {
+    const stateFeature = statesData.features.find(feature => feature.properties.name === stateName);
+    if (stateFeature) {
+        return stateFeature.geometry;
+    } else {
+        console.error(`Geometry not found for state: ${stateName}`);
+        return null; 
+    }
+}
+
+async function createMapWithData(statesData) {
+    try {
+        const databaseData = await fetchDataBaseData();
+        if (!databaseData) return;  
+
+        console.log("Database Data:", databaseData); 
+
+        const geoJSONFeatures = databaseData.map(state => ({
+            "type": "Feature",
+            "properties": {
+                "name": state.name,
+                "temperature": state.temperature 
+            },
+            "geometry": getStateGeometry(state.name, statesData)
+        }));
+
+        console.log("GeoJSON Features:", geoJSONFeatures); 
+
+        const geoJSONData = {
+            "type": "FeatureCollection",
+            "features": geoJSONFeatures
+        };
+
+        createMap(geoJSONData);
+    } catch (error) {
+        console.error('Error creating map with data:', error.message);
+    }
+}
+
+function createMap(statesData) {
+    console.log("Data with temperature:", statesData);
+    var map = L.map('map').setView([37.8, -96], 4.41);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    console.log(statesData);
+
+    fetchDataBaseData()
+        .then(function (temperature) {
+            L.geoJson(statesData, {
+                style: function (feature) {
+                    const stateName = feature.properties.name;
+                    const stateTemperature = feature.properties.temperature;
+                    console.log("State Name:", stateName, "Temperature:", stateTemperature);
+                    
+                    return {
+                        fillColor: getColor(stateTemperature),
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    const temperature = feature.properties.temperature;
+                    layer.bindPopup(feature.properties.name + "<br>Temperature: " + temperature + "°F");
+                }
+            }).addTo(map);
+        })
+        .catch(function (error) {
+            console.error('Error fetching temperature data:', error);
+        });
+}
+
+function getColor(temperature) {
+    let color;
+    if (temperature > 100) {
+        color = '#800026';
+    } else if (temperature > 90) {
+        color = '#BD0026';
+    } else if (temperature > 70) {
+        color = '#E31A1C';
+    } else if (temperature > 65) {
+        color = '#FC4E2A';
+    } else if (temperature > 60) {
+        color = '#FD8D3C';
+    } else if (temperature > 55) {
+        color = '#FEB24C';
+    } else if (temperature > 50) {
+        color = '#FED976';
+    } else {
+        color = '#FFEDA0';
+    }
+
+    return color;
+}
+
+window.onload = createMapWithData(statesData);
 
