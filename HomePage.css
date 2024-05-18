@@ -126,4 +126,17 @@ button {
     margin-left: 10px;
 }
 
+#map {
+    width: 100%; /* Fit map width to container */
+    height: 100%; /* Fit map height to container */
+}
 
+
+#map-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 122%);
+    width: 70%; /* Adjust width as needed */
+    height: 60%; /* Adjust height as needed */
+}

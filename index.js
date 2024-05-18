@@ -17,12 +17,12 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 
 app.get('/', (req, res) => {
-    res.sendFile('/help.html', { root: __dirname });
+    res.sendFile('/functionality.html', { root: __dirname });
 })
 
 app.get('/supabase_data', async (req, res) => {
     const { data, error } = await supabase
-        .from('Weather_data')
+        .from('state_densities')
         .select();
 
     if (error) {
@@ -32,7 +32,7 @@ app.get('/supabase_data', async (req, res) => {
         res.send(data);
     }
     console.log('Data:', data);
-})
+}) 
 
 app.get('/external_data', async (req, res) => {
     const { zip } = req.query;

@@ -12,9 +12,47 @@ async function fetchDataFromExternalProvider() {
         return data;
     } catch (error) {
         console.error('Error fetching data:', error.message);
-        return null; 
+        return null;
     }
 }
+
+var map = L.map('map').setView([37.8, -96], 4.4); 
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+/* var map = L.map('map').setView([37.8, -96], 3.2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+function getColor(d) {
+    return d > 1000 ? '#800026' :
+        d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                        d > 20 ? '#FEB24C' :
+                            d > 10 ? '#FED976' :
+                                '#FFEDA0';
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.density),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+L.geoJson(, {style: style}).addTo(map); */
 
 async function createChart() {
     try {
@@ -47,7 +85,7 @@ async function createChart() {
         // Create datasets
         const datasets = data.map(({ label, value, color }) => ({
             label: label,
-            data: [{ x: label, y: parseFloat(value) }], 
+            data: [{ x: label, y: parseFloat(value) }],
             backgroundColor: color,
             pointBackgroundColor: color,
             pointRadius: 5,
@@ -62,16 +100,16 @@ async function createChart() {
             options: {
                 scales: {
                     x: {
-                        type: 'category', 
-                        labels: datasets.map(dataset => dataset.label), 
+                        type: 'category',
+                        labels: datasets.map(dataset => dataset.label),
                         title: {
                             display: true,
                         }
                     },
                     y: {
                         beginAtZero: true,
-                        suggestedMin: 0, 
-                        suggestedMax: Math.max(...data.map(item => parseFloat(item.value))) 
+                        suggestedMin: 0,
+                        suggestedMax: Math.max(...data.map(item => parseFloat(item.value)))
                     }
                 }
             }
