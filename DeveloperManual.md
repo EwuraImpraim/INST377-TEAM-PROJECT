@@ -33,6 +33,17 @@ API for the server application:
 
 
   The API's for the server application include the Open-Mateo weather API.
+  Our GET:
+    GET /api/weather:
+      This is in place to get our data to provide weather information
+    POST /api/weather:
+      This is in place to save the data we just retrieved.
+    PATCH /api/weather/id:
+      This is in place in order to update the data we have depending on the certain location given by the user.
+    DELETER /api/weather/id:
+      This is in place to delete the data we just gathered based on a certain location given by the user. The user may want to look up weather in a different location, so this is essential in displaying new data. 
+
+    
 
 
 Known Bugs/ Road Maps:
