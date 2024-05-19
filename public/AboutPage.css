@@ -1,0 +1,36 @@
+.card {
+  margin: 10px;
+}
+
+.card img {
+  height: 600px;;
+  object-fit: cover;
+  object-position: top;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.button {
+  height: 50px;
+  border: none;
+  outline: 0;
+  display:inline-block;
+  padding: 10px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  vertical-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}

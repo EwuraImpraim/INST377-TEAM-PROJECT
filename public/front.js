@@ -16,11 +16,9 @@ async function fetchDataFromExternalProvider() {
     }
 }
 
-
 async function createChart() {
     try {
         const weatherData = await fetchDataFromExternalProvider();
-        console.log(weatherData);
 
         const temperatureFahrenheit = (weatherData.temperature - 273.15) * 9 / 5 + 32;
 
@@ -115,7 +113,6 @@ async function fetchDataBaseData() {
             throw new Error('Failed to fetch data');
         }
         const databaseData = await response.json();
-        console.log(databaseData)
         return databaseData;
     } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -138,8 +135,6 @@ async function createMapWithData(statesData) {
         const databaseData = await fetchDataBaseData();
         if (!databaseData) return;  
 
-        console.log("Database Data:", databaseData); 
-
         const geoJSONFeatures = databaseData.map(state => ({
             "type": "Feature",
             "properties": {
@@ -148,8 +143,6 @@ async function createMapWithData(statesData) {
             },
             "geometry": getStateGeometry(state.name, statesData)
         }));
-
-        console.log("GeoJSON Features:", geoJSONFeatures); 
 
         const geoJSONData = {
             "type": "FeatureCollection",
@@ -163,7 +156,6 @@ async function createMapWithData(statesData) {
 }
 
 function createMap(statesData) {
-    console.log("Data with temperature:", statesData);
     var map = L.map('map').setView([37.8, -96], 4.41);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -171,7 +163,6 @@ function createMap(statesData) {
         attribution:
             '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
-    console.log(statesData);
 
     fetchDataBaseData()
         .then(function (temperature) {
@@ -179,7 +170,6 @@ function createMap(statesData) {
                 style: function (feature) {
                     const stateName = feature.properties.name;
                     const stateTemperature = feature.properties.temperature;
-                    console.log("State Name:", stateName, "Temperature:", stateTemperature);
                     
                     return {
                         fillColor: getColor(stateTemperature),
