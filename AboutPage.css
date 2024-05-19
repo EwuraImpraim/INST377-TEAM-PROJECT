@@ -52,17 +52,58 @@ html {
   color: white;
   background-color: #000;
   text-align: center;
+=======
+.card {
+  margin: 10px;
+}
+
+
+.card img {
+  height: 600px;;
+  object-fit: cover;
+  object-position: top;
+}
+
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+
+.card-text {
+  font-size: 1rem;
+}
+
+
+.button {
+  height: 50px;
+  border: none;
+  outline: 0;
+  display:inline-block;
+  padding: 10px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  vertical-align: center;
+>>>>>>> 2541a06 (Resolved merge conflicts)
   cursor: pointer;
   width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2541a06 (Resolved merge conflicts)
 .button:hover {
   background-color: #555;
 }
 
+<<<<<<< HEAD
 @media screen and (max-width: 650px) {
   .column {
     width: 100%;
     display: block;
   }
 }
+
